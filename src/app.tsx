@@ -1,3 +1,9 @@
+import { AutoDeleteList } from '@/components/auto-delete-list'
+
 export function App() {
-  return <h1 className="text-2xl font-bold">Hello World!</h1>
+  return (
+    <div className="container mx-auto px-2 sm:px-0">
+      <AutoDeleteList />
+    </div>
+  )
 }
