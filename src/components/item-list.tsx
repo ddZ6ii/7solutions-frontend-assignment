@@ -1,13 +1,18 @@
-export function ItemList() {
+import { ItemButton } from '@/components/item-button'
+import type { Item } from '@/types/item'
+
+type ItemListProps = {
+  items: readonly Item[]
+}
+
+export function ItemList({ items }: ItemListProps) {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(min(6rem,100%),1fr))] items-start gap-1 bg-amber-500 lg:grid-cols-1 lg:gap-2">
-      {Array(10)
-        .fill(null)
-        .map((_, i) => (
-          <button key={i} className="bg-slate-500 p-2">
-            Item {i + 1}
-          </button>
-        ))}
-    </div>
+    <ul className="grid h-full grid-cols-[repeat(auto-fit,minmax(min(8rem,100%),1fr))] content-start gap-2 overflow-y-auto px-2 py-2 lg:grid-cols-1 lg:gap-4 lg:px-4">
+      {items.map((item) => (
+        <li key={item.name}>
+          <ItemButton item={item} />
+        </li>
+      ))}
+    </ul>
   )
 }
