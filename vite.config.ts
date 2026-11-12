@@ -52,6 +52,8 @@ export default defineConfig({
   test: {
     projects: ['apps/*'],
     coverage: {
+      // Test setup files aren't application code
+      exclude: ['**/src/test/**'],
       // Minimum floor, not a target: fail `vp run coverage` if untested code lands
       thresholds: { statements: 90, functions: 90, lines: 90, branches: 80 },
     },
