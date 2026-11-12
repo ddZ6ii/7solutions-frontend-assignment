@@ -27,16 +27,16 @@ Built for the [7Solutions frontend assignment](https://github.com/7-solutions/fr
 
 ```bash
 vp install
-vp dev
+vp run dev
 ```
 
-**Available commands**
+**Available commands** (run from the repo root)
 
 | Command           | Description                                        |
 | ----------------- | -------------------------------------------------- |
-| `vp dev`          | Start the dev server with HMR                      |
+| `vp run dev`      | Start the web app dev server with HMR              |
 | `vp run build`    | Type check and build for production                |
-| `vp preview`      | Serve the production build locally                 |
+| `vp run preview`  | Serve the web app production build locally         |
 | `vp test`         | Run all tests once (`vp test watch` to watch)      |
 | `vp run coverage` | Run tests with a v8 coverage report in `coverage/` |
 | `vp lint`         | Lint with Oxlint                                   |
@@ -45,18 +45,28 @@ vp dev
 ## Project structure
 
 ```
-src/
-├── components/   UI: board layout, item list, item button, type column, AutoDeleteList
-├── hooks/        useAutoDelete (state + timers), useMoveFeedback (focus + announcements)
-├── lib/          board-state: pure state transitions
-├── data/         seed items
-├── types/        Item and ItemType definitions
-└── test/         test setup
+apps/
+└── web/                 Auto Delete List (React + Vite)
+    ├── src/
+    │   ├── components/  UI: board layout, item list, item button, type column, AutoDeleteList
+    │   ├── hooks/       useAutoDelete (state + timers), useMoveFeedback (focus + announcements)
+    │   ├── lib/         board-state: pure state transitions
+    │   ├── data/        seed items
+    │   ├── types/       Item and ItemType definitions
+    │   └── test/        test setup
+    ├── public/
+    └── vercel.json      Vercel build settings
+docs/                    README assets
+tsconfig.base.json       shared compiler options
+vite.config.ts           workspace lint, format and test config
+pnpm-workspace.yaml      workspace packages
 ```
+
+The repo is a pnpm workspace managed with Vite+. Formatting, linting and tests are configured once at the root, while each app keeps its own Vite config. `apps/api` (Part 2) will be added alongside `apps/web`.
 
 ## Design decisions
 
-- **Pure state transitions.** `lib/board-state.ts` exposes `initState`, `moveToColumn` and `moveToMain`. The move functions are curried (`moveToColumn(item)(prev)`), so they plug straight into `setState(moveToColumn(item))` and React always passes the latest state, even from a timer callback.
+- **Pure state transitions.** `apps/web/src/lib/board-state.ts` exposes `initState`, `moveToColumn` and `moveToMain`. The move functions are curried (`moveToColumn(item)(prev)`), so they plug straight into `setState(moveToColumn(item))` and React always passes the latest state, even from a timer callback.
 - **One timer per item, stored in a ref.** `useAutoDelete` keeps timers in a `Map` keyed by item name. Invariant: _an item has a pending timer ⇔ it is in a type column_. `moveItem` uses this to know where an item is, without reading state. All pending timers are cleared on unmount.
 - **Stable `moveItem`.** The optional `onMove` callback is stored in a ref, so `moveItem` keeps the same identity across renders while timers always call the latest callback.
 - **Returning items go to the bottom.** An item coming back is appended to the main list instead of being restored to its original position. This matches the assignment's expected behaviour and keeps the state model simple (no stored indexes).
@@ -73,11 +83,11 @@ src/
 
 Tests use Vitest (bundled with Vite+), Testing Library and jsdom. Each behaviour is tested once, at the level where it is easiest to check.
 
-| Level       | File                                       | Tests | Covers                                                                                     |
-| ----------- | ------------------------------------------ | ----: | ------------------------------------------------------------------------------------------ |
-| Unit        | `src/lib/board-state.test.ts`              |    14 | State transitions, ordering, immutability, identity matching                               |
-| Hook        | `src/hooks/use-auto-delete.test.ts`        |    11 | Timer logic: auto return, manual cancel, per-item timers, unmount cleanup, latest `onMove` |
-| Integration | `src/components/auto-delete-list.test.tsx` |     9 | User flows, accessible names, live region announcements, focus handling                    |
+| Level       | File                                                | Tests | Covers                                                                                     |
+| ----------- | --------------------------------------------------- | ----: | ------------------------------------------------------------------------------------------ |
+| Unit        | `apps/web/src/lib/board-state.test.ts`              |    14 | State transitions, ordering, immutability, identity matching                               |
+| Hook        | `apps/web/src/hooks/use-auto-delete.test.ts`        |    11 | Timer logic: auto return, manual cancel, per-item timers, unmount cleanup, latest `onMove` |
+| Integration | `apps/web/src/components/auto-delete-list.test.tsx` |     9 | User flows, accessible names, live region announcements, focus handling                    |
 
 Timers are faked with `vi.useFakeTimers()`. Integration tests enable `shouldAdvanceTime: true`, because Testing Library's async wrapper otherwise waits forever on a faked `setTimeout`.
 
