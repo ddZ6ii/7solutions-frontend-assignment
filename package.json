@@ -1,33 +1,21 @@
 {
-  "name": "frontend-assignment",
+  "name": "7solutions-frontend-assignment",
   "version": "0.0.0",
   "private": true,
-  "description": "Auto delete todo list: items move to their type column and return after 5 seconds",
+  "description": "7Solutions frontend assignment monorepo: Auto Delete List web app",
   "author": "Denis Dezest",
   "type": "module",
   "scripts": {
-    "dev": "vp dev",
-    "build": "tsc -b && vp build",
+    "dev": "vp run --filter web dev",
+    "build": "vp run -r build",
+    "preview": "vp run --filter web preview",
     "lint": "vp lint",
-    "preview": "vp preview",
     "test": "vp test",
     "coverage": "vp test --coverage"
   },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.5",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "tailwindcss": "^4.3.5"
-  },
   "devDependencies": {
-    "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^24.19.2",
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
-    "@vitejs/plugin-react": "^6.1.2",
     "@vitest/coverage-v8": "5.1.0",
-    "jsdom": "^31.0.0",
     "typescript": "~7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:"
