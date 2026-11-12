@@ -1,7 +1,8 @@
 import { ITEMS } from '@/data/items'
 import { ITEM_TYPES, type Item, type ItemType } from '@/types/item'
 
-type State = Record<ItemType | 'main', Item[]>
+type ListKey = ItemType | 'main'
+type State = Record<ListKey, Item[]>
 type StateUpdater = (prev: State) => State
 
 const initState = (): State => ({
@@ -28,4 +29,4 @@ const moveToColumn =
     [item.type]: [...prev[item.type], item],
   })
 
-export { initState, moveToMain, moveToColumn }
+export { type ListKey, initState, moveToMain, moveToColumn }
