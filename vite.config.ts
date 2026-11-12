@@ -48,6 +48,10 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    coverage: {
+      // Minimum floor, not a target: fail `vp run coverage` if untested code lands
+      thresholds: { statements: 90, functions: 90, lines: 90, branches: 80 },
+    },
   },
   plugins: lazyPlugins(() => [react(), tailwindcss()]),
 })
