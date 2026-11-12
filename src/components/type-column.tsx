@@ -6,9 +6,10 @@ import type { Item, ItemType } from '@/types/item'
 type TypeColumnProps = {
   type: ItemType
   items: readonly Item[]
+  onItemClick: (item: Item) => void
 }
 
-export function TypeColumn({ type, items }: TypeColumnProps) {
+export function TypeColumn({ type, items, onItemClick }: TypeColumnProps) {
   const headingId = useId()
 
   return (
@@ -18,11 +19,11 @@ export function TypeColumn({ type, items }: TypeColumnProps) {
     >
       <h2
         id={headingId}
-        className="border-b border-gray-300 bg-[#f2f3f5] py-1 text-center text-sm font-semibold lg:p-2 lg:text-lg"
+        className="border-b border-gray-300 bg-[#f2f3f5] py-1 text-center text-sm font-semibold capitalize lg:p-2 lg:text-lg"
       >
         {type}
       </h2>
-      <ItemList items={items} />
+      <ItemList items={items} onItemClick={onItemClick} />
     </section>
   )
 }

@@ -1,48 +1,48 @@
 import type { Item } from '@/types/item'
 
-export const ITEMS: readonly Item[] = [
+export const ITEMS: Item[] = [
   {
-    type: 'Fruit',
+    type: 'fruit',
     name: 'Apple',
   },
   {
-    type: 'Vegetable',
+    type: 'vegetable',
     name: 'Broccoli',
   },
   {
-    type: 'Vegetable',
+    type: 'vegetable',
     name: 'Mushroom',
   },
   {
-    type: 'Fruit',
+    type: 'fruit',
     name: 'Banana',
   },
   {
-    type: 'Vegetable',
+    type: 'vegetable',
     name: 'Tomato',
   },
   {
-    type: 'Fruit',
+    type: 'fruit',
     name: 'Orange',
   },
   {
-    type: 'Fruit',
+    type: 'fruit',
     name: 'Mango',
   },
   {
-    type: 'Fruit',
+    type: 'fruit',
     name: 'Pineapple',
   },
   {
-    type: 'Vegetable',
+    type: 'vegetable',
     name: 'Cucumber',
   },
   {
-    type: 'Fruit',
+    type: 'fruit',
     name: 'Watermelon',
   },
   {
-    type: 'Vegetable',
+    type: 'vegetable',
     name: 'Carrot',
   },
 ]
