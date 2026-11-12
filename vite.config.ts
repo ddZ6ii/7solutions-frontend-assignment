@@ -47,6 +47,12 @@ export default defineConfig({
           ],
         },
       },
+      {
+        files: ['apps/api/**'],
+        env: {
+          node: true,
+        },
+      },
     ],
   },
   test: {
