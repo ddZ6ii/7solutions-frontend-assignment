@@ -1,8 +1,7 @@
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
-import { defineConfig, lazyPlugins } from 'vite-plus'
+import { defineConfig } from 'vite-plus'
 
-// https://vite.dev/config/
+// Workspace-wide config: formatting, linting and the test runner.
+// App-specific Vite/Vitest settings live in apps/*/vite.config.ts.
 export default defineConfig({
   fmt: {
     arrowParens: 'always',
@@ -15,20 +14,13 @@ export default defineConfig({
     trailingComma: 'all',
     useTabs: false,
     sortTailwindcss: {
-      stylesheet: './src/index.css',
+      stylesheet: './apps/web/src/index.css',
       functions: ['clsx', 'cn', 'cva'],
     },
   },
   lint: {
-    plugins: ['react', 'typescript', 'oxc'],
+    plugins: ['typescript', 'oxc'],
     rules: {
-      'react/rules-of-hooks': 'error',
-      'react/only-export-components': [
-        'warn',
-        {
-          allowConstantExport: true,
-        },
-      ],
       'vite-plus/prefer-vite-plus-imports': 'error',
     },
     options: {
@@ -41,17 +33,29 @@ export default defineConfig({
         specifier: 'vite-plus/oxlint-plugin',
       },
     ],
-  },
-  resolve: {
-    tsconfigPaths: true,
+    overrides: [
+      {
+        files: ['apps/web/**'],
+        plugins: ['react'],
+        rules: {
+          'react/rules-of-hooks': 'error',
+          'react/only-export-components': [
+            'warn',
+            {
+              allowConstantExport: true,
+            },
+          ],
+        },
+      },
+    ],
   },
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
+    projects: ['apps/*'],
     coverage: {
+      // Test setup files aren't application code
+      exclude: ['**/src/test/**'],
       // Minimum floor, not a target: fail `vp run coverage` if untested code lands
       thresholds: { statements: 90, functions: 90, lines: 90, branches: 80 },
     },
   },
-  plugins: lazyPlugins(() => [react(), tailwindcss()]),
 })
