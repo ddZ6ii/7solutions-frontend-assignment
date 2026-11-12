@@ -1,4 +1,4 @@
-import type { ITEM_TYPES } from '@/data/item-types'
+const ITEM_TYPES = ['fruit', 'vegetable'] as const
 
 type ItemType = (typeof ITEM_TYPES)[number]
 
@@ -7,4 +7,4 @@ type Item = {
   name: string
 }
 
-export { type ItemType, type Item }
+export { ITEM_TYPES, type ItemType, type Item }

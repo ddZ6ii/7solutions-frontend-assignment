@@ -1,15 +1,12 @@
-import { useId } from 'react'
+import { useId, type PropsWithChildren } from 'react'
 
-import { ItemList } from '@/components/item-list'
-import type { Item, ItemType } from '@/types/item'
+import type { ItemType } from '@/types/item'
 
-type TypeColumnProps = {
+type TypeColumnProps = PropsWithChildren<{
   type: ItemType
-  items: readonly Item[]
-  onItemClick: (item: Item) => void
-}
+}>
 
-export function TypeColumn({ type, items, onItemClick }: TypeColumnProps) {
+export function TypeColumn({ children, type }: TypeColumnProps) {
   const headingId = useId()
 
   return (
@@ -23,7 +20,7 @@ export function TypeColumn({ type, items, onItemClick }: TypeColumnProps) {
       >
         {type}
       </h2>
-      <ItemList items={items} onItemClick={onItemClick} />
+      {children}
     </section>
   )
 }
