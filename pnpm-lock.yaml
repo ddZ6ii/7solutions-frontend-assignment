@@ -164,6 +164,12 @@ settings:
 
 catalogs:
   default:
+    '@types/node':
+      specifier: ^24.19.2
+      version: 24.19.2
+    typescript:
+      specifier: ~7.0.2
+      version: 7.0.2
     vite:
       specifier: npm:@voidzero-dev/vite-plus-core@1.6.0
       version: 1.6.0
@@ -179,13 +185,38 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: ^24.19.2
+        specifier: 'catalog:'
         version: 24.19.2
       '@vitest/coverage-v8':
         specifier: 5.1.0
         version: 5.1.0(@vitest/browser@5.1.0)(vitest@5.1.0)
       typescript:
-        specifier: ~7.0.2
+        specifier: 'catalog:'
+        version: 7.0.2
+      vite:
+        specifier: 'catalog:'
+        version: '@voidzero-dev/vite-plus-core@1.6.0(@types/node@24.19.2)(jiti@2.7.0)(typescript@7.0.2)'
+      vite-plus:
+        specifier: 'catalog:'
+        version: 1.6.0(@types/node@24.19.2)(@vitest/coverage-v8@5.1.0)(@vitest/ui@5.1.0)(jiti@2.7.0)(jsdom@31.0.0)(typescript@7.0.2)
+
+  apps/api:
+    dependencies:
+      hono:
+        specifier: ^4.13.17
+        version: 4.13.17
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
+    devDependencies:
+      '@hono/node-server':
+        specifier: ^2.1.6
+        version: 2.1.6(hono@4.13.17)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.19.2
+      typescript:
+        specifier: 'catalog:'
         version: 7.0.2
       vite:
         specifier: 'catalog:'
@@ -216,7 +247,7 @@ importers:
         specifier: ^14.6.8
         version: 14.6.8(@testing-library/dom@10.4.2)
       '@types/node':
-        specifier: ^24.19.2
+        specifier: 'catalog:'
         version: 24.19.2
       '@types/react':
         specifier: ^19.3.0
@@ -231,7 +262,7 @@ importers:
         specifier: ^31.0.0
         version: 31.0.0
       typescript:
-        specifier: ~7.0.2
+        specifier: 'catalog:'
         version: 7.0.2
       vite:
         specifier: 'catalog:'
@@ -282,6 +313,12 @@ packages:
     peerDependenciesMeta:
       '@noble/hashes':
         optional: true
+
+  '@hono/node-server@2.1.6':
+    resolution: {integrity: sha512-p/KH9MnfNcsm3sR6x4lNgm5j+QN4Et8srKredl9DZfXiyZ1UQ3aQ2YVpFLbqktYN5JI+DB+VZFKM2PqE5hLKjQ==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      hono: ^4 || ^5.0.0-0
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1205,6 +1242,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  hono@4.13.17:
+    resolution: {integrity: sha512-vZIcbkvjOR5hHRWERbGkr8fGfF0GGM1ooYkuH448iO3b2AdVEr3AXZSw4Z3Kn+1L5z0CVoVeyV29VGYmFh05kQ==}
+    engines: {node: '>=16.9.0'}
+
   html-encoding-sniffer@7.0.0:
     resolution: {integrity: sha512-UikN5yr7xsCDAq87Or5or0PAlD3HJJOKVzM05az588WnpDJ4Ux7a2A53Qi6gofGg2/EtvF/H4hCi/TXfCW4Y6w==}
     engines: {node: ^22.13.0 || >=24.0.0}
@@ -1599,6 +1640,9 @@ packages:
     resolution: {integrity: sha512-XrBh9ZiQK5mJVRxZBAvD6LwRyAYrK3MFtH3+onyuxFL5hFD44EC3QOmIC1FjTj6H2MMwq46/NAI+NZxLZPZgxg==}
     engines: {node: '>=14.18.0'}
 
+  zod@4.6.7:
+    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
+
 snapshots:
 
   '@babel/code-frame@7.29.7':
@@ -1627,6 +1671,10 @@ snapshots:
   '@blazediff/core@1.10.0': {}
 
   '@exodus/bytes@1.16.0': {}
+
+  '@hono/node-server@2.1.6(hono@4.13.17)':
+    dependencies:
+      hono: 4.13.17
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -2214,6 +2262,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  hono@4.13.17: {}
+
   html-encoding-sniffer@7.0.0:
     dependencies:
       '@exodus/bytes': 1.16.0
@@ -2633,3 +2683,5 @@ snapshots:
     dependencies:
       '@yuku-toolchain/types': 0.19.0
       yuku-core: 0.19.0
+
+  zod@4.6.7: {}
