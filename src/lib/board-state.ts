@@ -29,4 +29,4 @@ const moveToColumn =
     [item.type]: [...prev[item.type], item],
   })
 
-export { type ListKey, initState, moveToMain, moveToColumn }
+export { type ListKey, type State, initState, moveToMain, moveToColumn }

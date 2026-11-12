@@ -45,5 +45,9 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+  },
   plugins: lazyPlugins(() => [react(), tailwindcss()]),
 })
