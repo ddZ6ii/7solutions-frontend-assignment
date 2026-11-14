@@ -17,7 +17,9 @@
     "test": "vp test",
     "test:web": "vp test --project web",
     "test:api": "vp test --project api",
-    "coverage": "vp test --coverage"
+    "test:live": "vp test --config apps/api/vite.live.config.ts",
+    "coverage": "vp test --coverage",
+    "bench": "vp test bench --reporter=verbose"
   },
   "devDependencies": {
     "@types/node": "catalog:",

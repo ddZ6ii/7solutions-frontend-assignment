@@ -36,10 +36,15 @@ const createDepartmentStats = (): DepartmentStats => ({
 })
 
 /**
- * Groups users by department in a single pass over the users (O(n)),
- * then formats one summary per department (O(d)).
+ * Groups users by department into the summary shape required by the API.
+ *
+ * Runs in O(n + d) for n users and d departments: one pass over the users to
+ * accumulate totals, then one pass over the departments to format them.
+ * Since d ≤ n, this is linear in the number of users. A naive version that
+ * filters the users once per department is O(d · n); see the benchmark in
+ * group-by-department.bench.ts.
  */
-export function groupByDepartment(users: readonly User[]): DepartmentMap {
+export const groupByDepartment = (users: readonly User[]): DepartmentMap => {
   // Map for the internal running totals: it starts truly empty (no inherited
   // keys like "constructor"), and get/set are made for keys added at runtime.
   // The plain-object output, needed for JSON, is built after the loop.
