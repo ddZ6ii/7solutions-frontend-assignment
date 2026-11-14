@@ -2,7 +2,7 @@
   "name": "7solutions-frontend-assignment",
   "version": "0.0.0",
   "private": true,
-  "description": "7Solutions frontend assignment monorepo: Auto Delete List web app",
+  "description": "7Solutions frontend assignment monorepo: Auto Delete List web app and departments API",
   "author": "Denis Dezest",
   "type": "module",
   "scripts": {
