@@ -61,7 +61,7 @@ GET /departments
   │
   ├─▶ Vercel CDN ── fresh copy? ──▶ answers directly (the function doesn't run)
   │
-  └─▶ Hono app (create-app.ts)
+  └─▶ Hono app (index.ts + routes.ts)
         └─▶ getDepartments()         in-memory cache, 60 s
               └─▶ fetchUsers()        dummyjson, validated with Zod Mini
               └─▶ groupByDepartment() single pass over the users
@@ -69,9 +69,9 @@ GET /departments
 
 ```
 src/
-├── index.ts         Vercel entry: export default createApp(...)
+├── index.ts         Vercel entry: creates the Hono app, exports it
 ├── server.ts        local entry: serves the same app with @hono/node-server
-├── create-app.ts    routes, headers, error handling
+├── routes.ts        routes, headers, error handling
 ├── departments/     what the API computes: grouping, formatting, cached loader
 ├── dummyjson/       where the data comes from: HTTP client and schema
 ├── lib/             generic tools: cache, HTTP errors
@@ -87,7 +87,7 @@ Dependencies point one way: `app → departments → dummyjson → lib`.
 - **Fetch all users, only the fields needed.** dummyjson returns 30 users by default; `?limit=0` returns all of them, and `select=` (built from the schema's keys) keeps the response small.
 - **One pass over the users.** `groupByDepartment` loops over the users once, updating each department's totals, then formats one summary per department: O(n + d) for n users and d departments. See [Performance](#performance).
 - **Dictionaries without a prototype.** Department names, hair colors and names come from external data and become object keys. On a plain `{}`, keys such as `__proto__` or `constructor` hit `Object.prototype`; the output objects are created with `Object.create(null)` so every key is stored as a normal property.
-- **The app receives its data source.** `createApp({ getDepartments })` takes the loader as a parameter: tests pass a fake, `index.ts` passes the real cached one.
+- **The app receives its data source.** `registerRoutes(app, { getDepartments })` takes the loader as a parameter: tests pass a fake, `index.ts` passes the real cached one.
 - **Known trade-off.** The `User` type is defined by the dummyjson schema, so the grouping code depends on dummyjson's field layout. With a second data source, the client would convert its data into a type owned by `departments/`.
 
 ## Caching

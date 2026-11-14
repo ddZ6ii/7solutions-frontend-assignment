@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import type { Hono } from 'hono'
 import { etag } from 'hono/etag'
 import type { ContentfulStatusCode } from 'hono/utils/http-status'
 
@@ -26,9 +26,14 @@ const PUBLIC_ERROR_MESSAGES: Partial<Record<number, string>> = {
 
 type Deps = { getDepartments: () => Promise<DepartmentMap> }
 
-const createApp = ({ getDepartments }: Deps) => {
-  const app = new Hono()
-
+/**
+ * Registers the API's routes, middleware and error handlers on `app`.
+ * The caller creates the Hono instance: index.ts for production, the tests
+ * with a fake `getDepartments`. Registering on the same instance (rather
+ * than mounting a sub-app with app.route) keeps the JSON 404 and error
+ * handlers, which a parent app would otherwise replace.
+ */
+const registerRoutes = (app: Hono, { getDepartments }: Deps): Hono => {
   // ETag: not a cache, a check for copies that already exist (mostly the
   // browser's, which `s-maxage` gives no freshness time). Each response gets a
   // hash of its body; when a client sends it back in If-None-Match and it still
@@ -72,4 +77,4 @@ const createApp = ({ getDepartments }: Deps) => {
   return app
 }
 
-export { createApp }
+export { registerRoutes }

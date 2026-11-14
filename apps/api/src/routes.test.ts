@@ -1,12 +1,14 @@
+import { Hono } from 'hono'
 import { describe, expect, test, vi } from 'vite-plus/test'
 
-import { createApp } from './create-app'
-import { UpstreamError } from './lib/errors'
 import type { DepartmentMap } from './departments/types'
+import { UpstreamError } from './lib/errors'
+import { registerRoutes } from './routes'
 
 // Contract under test:
-//   createApp({ getDepartments }) returns a Hono app. Tests pass a fake
-//   getDepartments, so they never touch the network, the cache or timers.
+//   registerRoutes(app, { getDepartments }) configures a Hono app, as
+//   index.ts does. Tests pass a fake getDepartments, so they never touch the
+//   network, the cache or timers.
 
 const departments: DepartmentMap = {
   Engineering: {
@@ -18,13 +20,13 @@ const departments: DepartmentMap = {
   },
 }
 
-// Literal on purpose: importing the constant from create-app.ts would compare it
+// Literal on purpose: importing the constant from routes.ts would compare it
 // with itself, so a typo in it would go unnoticed.
 const DEPARTMENTS_CACHE_CONTROL =
   'public, s-maxage=300, stale-while-revalidate=600'
 
 const setup = (getDepartments = vi.fn().mockResolvedValue(departments)) => ({
-  app: createApp({ getDepartments }),
+  app: registerRoutes(new Hono(), { getDepartments }),
   getDepartments,
 })
 

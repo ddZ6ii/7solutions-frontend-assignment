@@ -4,7 +4,7 @@ import { groupByDepartment } from './group-by-department'
 import type { DepartmentMap } from './types'
 
 /**
- * In-memory cache: the inner layer, behind the CDN cache (../create-app.ts).
+ * In-memory cache: the inner layer, behind the CDN cache (../routes.ts).
  * It lives in one warm function instance; a new instance starts empty.
  * Avoids refetching users from dummyjson on every request.
  * Department data changes rarely, so one minute of staleness is acceptable.
