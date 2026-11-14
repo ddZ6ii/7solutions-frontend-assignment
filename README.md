@@ -23,6 +23,14 @@ vp install
 vp run dev
 ```
 
+**Without the global Vite+ CLI**, use pnpm: `vite-plus` is a dev dependency, so `pnpm install` provides a local `vp`.
+
+```bash
+pnpm install
+pnpm run dev       # `vp run <script>` → `pnpm run <script>`
+pnpm vp check      # other `vp <command>` → `pnpm vp <command>`
+```
+
 **Available commands** (run from the repo **root**)
 
 | Command            | Description                                               |
