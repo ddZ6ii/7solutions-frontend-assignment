@@ -1,27 +1,16 @@
 import { describe, expect, test } from 'vite-plus/test'
-import {
-  makeUsersPaginatedResponse,
-  queryParamsFixture,
-  userFixture,
-  usersPaginatedFixture,
-} from '../test/user-fixtures'
-import {
-  DEFAULT_SEARCH_RESULT_LIMIT,
-  UserQueryParamsSchema,
-  UserSchema,
-  UsersPaginatedResponseSchema,
-} from './schema'
+
+import { makeUsersResponse, userFixture } from '../test/user-fixtures'
+import { UserSchema, UsersResponseSchema } from './schema'
 
 describe('UserSchema', () => {
   test('accepts a valid user', () => {
-    expect(() => UserSchema.parse(userFixture)).not.toThrow()
     expect(UserSchema.parse(userFixture)).toEqual(userFixture)
   })
 
   test('drops extra fields', () => {
     const rawUser = { ...userFixture, id: 1, email: 'emily@x.com' }
 
-    expect(() => UserSchema.parse(rawUser)).not.toThrow()
     expect(UserSchema.parse(rawUser)).toEqual(userFixture)
   })
 
@@ -37,12 +26,7 @@ describe('UserSchema', () => {
 
   test('accepts any hair.color string value', () => {
     expect(() =>
-      UserSchema.parse({
-        ...userFixture,
-        hair: {
-          color: 'purple',
-        },
-      }),
+      UserSchema.parse({ ...userFixture, hair: { color: 'Purple' } }),
     ).not.toThrow()
   })
 
@@ -55,7 +39,7 @@ describe('UserSchema', () => {
   })
 
   test('rejects age with a non-number value', () => {
-    expect(() => UserSchema.parse({ ...userFixture, age: '0' })).toThrow()
+    expect(() => UserSchema.parse({ ...userFixture, age: '29' })).toThrow()
   })
 
   test('rejects age with a value of 0', () => {
@@ -89,54 +73,30 @@ describe('UserSchema', () => {
   })
 })
 
-describe('UsersPaginatedResponse', () => {
-  test('accepts an array of valid users', () => {
-    expect(() =>
-      UsersPaginatedResponseSchema.parse(usersPaginatedFixture),
-    ).not.toThrow()
-    expect(UsersPaginatedResponseSchema.parse(usersPaginatedFixture)).toEqual(
-      usersPaginatedFixture,
-    )
+describe('UsersResponseSchema', () => {
+  test('accepts a list of valid users', () => {
+    const response = makeUsersResponse([userFixture])
+
+    expect(UsersResponseSchema.parse(response)).toEqual(response)
   })
 
-  test('accepts an empty array of users', () => {
-    expect(() =>
-      UsersPaginatedResponseSchema.parse(makeUsersPaginatedResponse([])),
-    ).not.toThrow()
+  test('accepts an empty list of users', () => {
+    expect(() => UsersResponseSchema.parse(makeUsersResponse([]))).not.toThrow()
   })
 
-  test('rejects with an invalid user', () => {
-    expect(() =>
-      UsersPaginatedResponseSchema.parse([{ ...userFixture, age: '34' }]),
-    ).toThrow()
-  })
-})
+  test('accepts the real dummyjson envelope and drops pagination fields', () => {
+    const response = { users: [userFixture], total: 1, skip: 0, limit: 0 }
 
-describe('UserQueryParams', () => {
-  test('accepts valid query parameters', () => {
-    expect(() => UserQueryParamsSchema.parse(queryParamsFixture)).not.toThrow()
-    expect(UserQueryParamsSchema.parse(queryParamsFixture)).toEqual({
-      ...queryParamsFixture,
-      limit: queryParamsFixture.limit?.toString(),
+    expect(UsersResponseSchema.parse(response)).toEqual({
+      users: [userFixture],
     })
   })
 
-  test('returns default value when no query params are passed', () => {
-    expect(UserQueryParamsSchema.parse({})).toEqual({
-      limit: DEFAULT_SEARCH_RESULT_LIMIT.toString(),
-    })
+  test('rejects a response without a users key', () => {
+    expect(() => UsersResponseSchema.parse({ total: 0 })).toThrow()
   })
 
-  test('returns default value when invalid limit value is provided', () => {
-    const invalidParams = { limit: -4 }
-
-    expect(() => UserQueryParamsSchema.parse(invalidParams)).not.toThrow()
-    expect(UserQueryParamsSchema.parse(invalidParams)).toEqual({
-      limit: DEFAULT_SEARCH_RESULT_LIMIT.toString(),
-    })
-  })
-
-  test('rejects when invalid param value is provided', () => {
-    expect(() => UserQueryParamsSchema.parse({ skip: '3323' })).toThrow()
+  test('rejects users set to null', () => {
+    expect(() => UsersResponseSchema.parse({ users: null })).toThrow()
   })
 })

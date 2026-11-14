@@ -19,40 +19,25 @@ const UserSchema = z.object({
   }),
 })
 
-const UsersPaginatedResponseSchema = z.object({
+/**
+ * Top-level user fields to request from dummyjson (`select=`), derived from
+ * the schema so the request and the validation can't drift apart.
+ */
+const USER_FIELDS = Object.keys(UserSchema.shape)
+
+// Only `users` is read: pagination fields (limit, skip, total) aren't
+// required, so their absence can't break the endpoint.
+const UsersResponseSchema = z.object({
   users: z.array(UserSchema),
-  limit: z.number(),
-  skip: z.number(),
-  total: z.number(),
-})
-
-const DEFAULT_SEARCH_RESULT_LIMIT = 30
-
-const UserQueryParamsSchema = z.object({
-  // Defaults or fallbacks to 30 search results if undefined or in case of a validation error.
-  limit: z.pipe(
-    z._default(
-      z.catch(z.number().check(z.nonnegative()), DEFAULT_SEARCH_RESULT_LIMIT),
-      DEFAULT_SEARCH_RESULT_LIMIT,
-    ),
-    z.transform((val) => String(val)),
-  ),
-  skip: z.optional(
-    z.pipe(z.number().check(z.nonnegative()), z.transform(String)),
-  ),
-  select: z.optional(z.string()),
 })
 
 type User = z.infer<typeof UserSchema>
-type UsersPaginatedResponse = z.infer<typeof UsersPaginatedResponseSchema>
-type UserQueryParams = z.input<typeof UserQueryParamsSchema>
+type UsersResponse = z.infer<typeof UsersResponseSchema>
 
 export {
-  DEFAULT_SEARCH_RESULT_LIMIT,
-  UsersPaginatedResponseSchema,
-  UserQueryParamsSchema,
+  USER_FIELDS,
   UserSchema,
+  UsersResponseSchema,
   type User,
-  type UsersPaginatedResponse,
-  type UserQueryParams,
+  type UsersResponse,
 }
