@@ -4,6 +4,10 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
     "lib": ["ES2023"],
     "types": ["node"],
+    /* Explicit, so "types" still resolves when this config is extended from
+       elsewhere: Vercel's build extends it from a temporary folder, where the
+       default lookup (node_modules/@types next to the config) finds nothing. */
+    "typeRoots": ["./node_modules/@types"],
 
     /* Bundler mode */
     "module": "esnext",
