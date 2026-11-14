@@ -1,5 +1,6 @@
 import { formatAgeRange, formatName } from './format'
-import type { DepartmentMap, User } from './types'
+import type { User } from './schema'
+import type { DepartmentMap } from './types'
 
 /** Running totals for one department while scanning users. */
 type DepartmentStats = {
