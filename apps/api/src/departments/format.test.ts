@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vite-plus/test'
 
-import { formatAgeRange, formatName } from './format'
+import { formatAgeRange, formatName } from './format.ts'
 
 describe('formatAgeRange', () => {
   test('joins min and max with a dash', () => {

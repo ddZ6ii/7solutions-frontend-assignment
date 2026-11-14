@@ -1,8 +1,8 @@
 import { expect, test } from 'vite-plus/test'
 
-import type { User } from '../dummyjson/schema'
-import { groupByDepartment } from './group-by-department'
-import type { DepartmentMap } from './types'
+import type { User } from '../dummyjson/schema.ts'
+import { groupByDepartment } from './group-by-department.ts'
+import type { DepartmentMap } from './types.ts'
 
 // Run with `vp test bench` (excluded from `vp test`).
 // Compares the single-pass implementation, O(n + d), with a naive multi-pass

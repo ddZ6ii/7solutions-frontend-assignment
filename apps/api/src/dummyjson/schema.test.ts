@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vite-plus/test'
 
-import { makeUsersResponse, userFixture } from '../test/user-fixtures'
-import { UserSchema, UsersResponseSchema } from './schema'
+import { makeUsersResponse, userFixture } from '../test/user-fixtures.ts'
+import { UserSchema, UsersResponseSchema } from './schema.ts'
 
 describe('UserSchema', () => {
   test('accepts a valid user', () => {

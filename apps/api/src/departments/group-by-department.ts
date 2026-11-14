@@ -1,6 +1,6 @@
-import { formatAgeRange, formatName } from './format'
-import type { User } from '../dummyjson/schema'
-import type { DepartmentMap } from './types'
+import { formatAgeRange, formatName } from './format.ts'
+import type { User } from '../dummyjson/schema.ts'
+import type { DepartmentMap } from './types.ts'
 
 /** Running totals for one department while scanning users. */
 type DepartmentStats = {

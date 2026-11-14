@@ -1,7 +1,7 @@
-import { cached } from '../lib/cached'
-import { fetchUsers } from '../dummyjson/fetch-users'
-import { groupByDepartment } from './group-by-department'
-import type { DepartmentMap } from './types'
+import { cached } from '../lib/cached.ts'
+import { fetchUsers } from '../dummyjson/fetch-users.ts'
+import { groupByDepartment } from './group-by-department.ts'
+import type { DepartmentMap } from './types.ts'
 
 /**
  * In-memory cache: the inner layer, behind the CDN cache (../routes.ts).

@@ -9,9 +9,11 @@
        default lookup (node_modules/@types next to the config) finds nothing. */
     "typeRoots": ["./node_modules/@types"],
 
-    /* Bundler mode */
-    "module": "esnext",
-    "moduleResolution": "bundler"
+    /* Node mode: Vercel compiles each file to .js and runs it with Node's
+       native ESM loader (no bundler), which needs file extensions on relative
+       imports. "nodenext" makes the type check reject imports without one;
+       imports are written with .ts, which Vercel rewrites to .js. */
+    "module": "nodenext"
   },
   "include": ["src", "vite.config.ts", "vite.live.config.ts"]
 }

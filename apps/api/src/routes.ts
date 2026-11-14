@@ -2,8 +2,8 @@ import type { Hono } from 'hono'
 import { etag } from 'hono/etag'
 import type { ContentfulStatusCode } from 'hono/utils/http-status'
 
-import type { DepartmentMap } from './departments/types'
-import { HttpError } from './lib/errors'
+import type { DepartmentMap } from './departments/types.ts'
+import { HttpError } from './lib/errors.ts'
 
 /**
  * CDN cache: the outer layer, in front of the in-memory cache

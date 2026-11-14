@@ -1,8 +1,8 @@
 import { assert, describe, expect, test, vi } from 'vite-plus/test'
 
-import { UpstreamError } from '../lib/errors'
-import { makeUsersResponse, userFixture } from '../test/user-fixtures'
-import { fetchUsers } from './fetch-users'
+import { UpstreamError } from '../lib/errors.ts'
+import { makeUsersResponse, userFixture } from '../test/user-fixtures.ts'
+import { fetchUsers } from './fetch-users.ts'
 
 // The setup file makes any un-mocked fetch reject, so tests never hit the network.
 

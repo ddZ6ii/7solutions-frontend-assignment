@@ -1,9 +1,9 @@
 import { Hono } from 'hono'
 import { describe, expect, test, vi } from 'vite-plus/test'
 
-import type { DepartmentMap } from './departments/types'
-import { UpstreamError } from './lib/errors'
-import { registerRoutes } from './routes'
+import type { DepartmentMap } from './departments/types.ts'
+import { UpstreamError } from './lib/errors.ts'
+import { registerRoutes } from './routes.ts'
 
 // Contract under test:
 //   registerRoutes(app, { getDepartments }) configures a Hono app, as

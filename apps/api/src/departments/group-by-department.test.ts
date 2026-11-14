@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vite-plus/test'
 
-import { groupByDepartment } from './group-by-department'
-import type { User } from '../dummyjson/schema'
+import { groupByDepartment } from './group-by-department.ts'
+import type { User } from '../dummyjson/schema.ts'
 
 const makeUser = (overrides: Partial<User> = {}): User => ({
   firstName: 'Emily',

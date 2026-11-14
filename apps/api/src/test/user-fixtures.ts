@@ -1,4 +1,4 @@
-import type { User, UsersResponse } from '../dummyjson/schema'
+import type { User, UsersResponse } from '../dummyjson/schema.ts'
 
 const userFixture: User = {
   firstName: 'Emily',

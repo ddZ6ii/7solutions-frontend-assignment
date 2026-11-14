@@ -7,7 +7,7 @@ import {
   vi,
 } from 'vite-plus/test'
 
-import { cached } from './cached'
+import { cached } from './cached.ts'
 
 // Contract under test:
 //   cached(load, { ttlMs }) returns a function `get` that resolves the value.

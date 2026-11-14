@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vite-plus/test'
 
-import { groupByDepartment } from '../departments/group-by-department'
-import { fetchUsers } from './fetch-users'
+import { groupByDepartment } from '../departments/group-by-department.ts'
+import { fetchUsers } from './fetch-users.ts'
 
 // Contract test against the REAL dummyjson (run with `vpr test:live`).
 // Unit tests prove the code works with the data shape we assumed; this checks
