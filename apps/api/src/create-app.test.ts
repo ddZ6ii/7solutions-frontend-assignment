@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vite-plus/test'
 
-import { createApp } from './app'
+import { createApp } from './create-app'
 import { UpstreamError } from './lib/errors'
 import type { DepartmentMap } from './departments/types'
 
@@ -18,7 +18,7 @@ const departments: DepartmentMap = {
   },
 }
 
-// Literal on purpose: importing the constant from app.ts would compare it
+// Literal on purpose: importing the constant from create-app.ts would compare it
 // with itself, so a typo in it would go unnoticed.
 const DEPARTMENTS_CACHE_CONTROL =
   'public, s-maxage=300, stale-while-revalidate=600'

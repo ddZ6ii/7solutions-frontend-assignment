@@ -61,7 +61,7 @@ GET /departments
   │
   ├─▶ Vercel CDN ── fresh copy? ──▶ answers directly (the function doesn't run)
   │
-  └─▶ Hono app (app.ts)
+  └─▶ Hono app (create-app.ts)
         └─▶ getDepartments()         in-memory cache, 60 s
               └─▶ fetchUsers()        dummyjson, validated with Zod Mini
               └─▶ groupByDepartment() single pass over the users
@@ -71,7 +71,7 @@ GET /departments
 src/
 ├── index.ts         Vercel entry: export default createApp(...)
 ├── server.ts        local entry: serves the same app with @hono/node-server
-├── app.ts           routes, headers, error handling
+├── create-app.ts    routes, headers, error handling
 ├── departments/     what the API computes: grouping, formatting, cached loader
 ├── dummyjson/       where the data comes from: HTTP client and schema
 ├── lib/             generic tools: cache, HTTP errors
