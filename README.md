@@ -1,14 +1,15 @@
 # 7Solutions Frontend Assignment
 
-Solutions to the [7Solutions frontend assignment](https://github.com/7-solutions/frontend-assignment), organised as a pnpm workspace managed with [Vite+](https://viteplus.dev).
+Solutions to both parts of the [7Solutions frontend assignment](https://github.com/7-solutions/frontend-assignment), organised as a pnpm workspace managed with [Vite+](https://viteplus.dev).
 
 ## Apps
 
-| App                    | Assignment               | Description                                                | Live                                                                             |
-| ---------------------- | ------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| [`apps/web`](apps/web) | Part 1: Auto Delete List | Items move to their type column and return after 5 seconds | [auto-delete-list-ddz6ii.vercel.app](https://auto-delete-list-ddz6ii.vercel.app) |
+| App                    | Assignment                       | Description                                                | Live                                                                             |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| [`apps/web`](apps/web) | Part 1: Auto Delete List         | Items move to their type column and return after 5 seconds | [auto-delete-list-ddz6ii.vercel.app](https://auto-delete-list-ddz6ii.vercel.app) |
+| [`apps/api`](apps/api) | Part 2 (optional): data from API | HTTP API grouping dummyjson users by department            | <!-- TODO: API production URL -->                                                |
 
-Each app has its own README with design decisions, accessibility notes and tests: see [`apps/web/README.md`](apps/web/README.md).
+Each app has its own README with design decisions and tests: see [`apps/web/README.md`](apps/web/README.md) and [`apps/api/README.md`](apps/api/README.md).
 
 ## Getting started
 
@@ -24,21 +25,26 @@ vp run dev
 
 **Available commands** (run from the repo **root**)
 
-| Command           | Description                                               |
-| ----------------- | --------------------------------------------------------- |
-| `vp run dev`      | Start the web app dev server with HMR                     |
-| `vp run build`    | Type check and build every app                            |
-| `vp run preview`  | Serve the web app production build locally                |
-| `vp test`         | Run all tests once across apps (`vp test watch` to watch) |
-| `vp run coverage` | Run tests with a v8 coverage report in `coverage/`        |
-| `vp lint`         | Lint with Oxlint                                          |
-| `vp check`        | Format, lint and type check in one pass                   |
+| Command            | Description                                               |
+| ------------------ | --------------------------------------------------------- |
+| `vp run dev`       | Start both apps in development mode                       |
+| `vp run dev:web`   | Start only the web app (HMR)                              |
+| `vp run dev:api`   | Start only the API on http://localhost:3000               |
+| `vp run build`     | Type check and build every app                            |
+| `vp run preview`   | Serve the web app production build locally                |
+| `vp test`          | Run all tests once across apps (`vp test watch` to watch) |
+| `vp run coverage`  | Run tests with a v8 coverage report in `coverage/`        |
+| `vp run test:live` | Run the API contract tests against the real dummyjson     |
+| `vp run bench`     | Run the API benchmark and print the timings table         |
+| `vp lint`          | Lint with Oxlint                                          |
+| `vp check`         | Format, lint and type check in one pass                   |
 
 ## Workspace structure
 
 ```
 apps/
-└── web/                 Auto Delete List (React + Vite)
+├── web/                 Auto Delete List (React + Vite)
+└── api/                 Departments API (Hono + Zod Mini)
 tsconfig.base.json       shared compiler options
 tsconfig.json            TypeScript project references
 vite.config.ts           workspace lint, format and test config
