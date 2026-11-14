@@ -1,6 +1,6 @@
 import * as z from 'zod/mini'
 
-import { UpstreamError, isTimeoutError } from '../errors'
+import { UpstreamError, isTimeoutError } from '../lib/errors'
 import { USER_FIELDS, UsersResponseSchema, type User } from './schema'
 
 const UPSTREAM_TIMEOUT_MS = 5000

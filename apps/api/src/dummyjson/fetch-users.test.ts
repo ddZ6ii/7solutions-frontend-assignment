@@ -1,6 +1,6 @@
 import { assert, describe, expect, test, vi } from 'vite-plus/test'
 
-import { UpstreamError } from '../errors'
+import { UpstreamError } from '../lib/errors'
 import { makeUsersResponse, userFixture } from '../test/user-fixtures'
 import { fetchUsers } from './fetch-users'
 

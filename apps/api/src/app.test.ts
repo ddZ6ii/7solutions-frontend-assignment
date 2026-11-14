@@ -1,8 +1,8 @@
 import { describe, expect, test, vi } from 'vite-plus/test'
 
 import { createApp } from './app'
-import { UpstreamError } from './errors'
-import type { DepartmentMap } from './users/types'
+import { UpstreamError } from './lib/errors'
+import type { DepartmentMap } from './departments/types'
 
 // Contract under test:
 //   createApp({ getDepartments }) returns a Hono app. Tests pass a fake

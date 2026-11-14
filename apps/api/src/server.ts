@@ -1,4 +1,4 @@
-// Local development server. On Vercel, the app exported by index.ts runs
+// Local development server entry point. On Vercel, the app exported by index.ts runs
 // without this file.
 import { serve } from '@hono/node-server'
 

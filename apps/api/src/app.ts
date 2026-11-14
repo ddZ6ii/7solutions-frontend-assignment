@@ -2,11 +2,12 @@ import { Hono } from 'hono'
 import { etag } from 'hono/etag'
 import type { ContentfulStatusCode } from 'hono/utils/http-status'
 
-import type { DepartmentMap } from './users/types'
-import { HttpError } from './errors'
+import type { DepartmentMap } from './departments/types'
+import { HttpError } from './lib/errors'
 
 /**
- * CDN cache: the outer layer, in front of the in-memory cache (departments.ts).
+ * CDN cache: the outer layer, in front of the in-memory cache
+ * (departments/get-departments.ts).
  * - `public`: shared caches (CDNs) may store the response.
  * - `s-maxage=300`: for 5 min the CDN answers with its copy; the request never
  *   reaches this function.
