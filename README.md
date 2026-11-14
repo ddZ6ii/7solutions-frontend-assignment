@@ -4,10 +4,10 @@ Solutions to both parts of the [7Solutions frontend assignment](https://github.c
 
 ## Apps
 
-| App                    | Assignment                       | Description                                                | Live                                                                             |
-| ---------------------- | -------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| [`apps/web`](apps/web) | Part 1: Auto Delete List         | Items move to their type column and return after 5 seconds | [auto-delete-list-ddz6ii.vercel.app](https://auto-delete-list-ddz6ii.vercel.app) |
-| [`apps/api`](apps/api) | Part 2 (optional): data from API | HTTP API grouping dummyjson users by department            | <!-- TODO: API production URL -->                                                |
+| App                    | Assignment                       | Description                                                | Live                                                                                       |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [`apps/web`](apps/web) | Part 1: Auto Delete List         | Items move to their type column and return after 5 seconds | [auto-delete-list-ddz6ii.vercel.app](https://auto-delete-list-ddz6ii.vercel.app)           |
+| [`apps/api`](apps/api) | Part 2 (optional): data from API | HTTP API grouping dummyjson users by department            | [departments-api-ddz6ii.vercel.app](https://departments-api-ddz6ii.vercel.app/departments) |
 
 Each app has its own README with design decisions and tests: see [`apps/web/README.md`](apps/web/README.md) and [`apps/api/README.md`](apps/api/README.md).
 

@@ -6,7 +6,7 @@ Part 2 (optional) of the [7Solutions frontend assignment](https://github.com/7-s
 
 ## Endpoints
 
-**Live:** <!-- TODO: add the API's production URL after deployment -->
+**Live:** https://departments-api-ddz6ii.vercel.app/departments
 
 | Method | Path           | Response                                                                   |
 | ------ | -------------- | -------------------------------------------------------------------------- |
